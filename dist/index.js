@@ -1269,9 +1269,14 @@ async function run() {
       return;
     }
 
+    core.info(`Branch: ${branch}`);
+    core.info(`Release Pattern: ${releasePattern}`);
+
     let currentTag = (await cmd(
       `git tag --points-at ${branch} ${releasePattern}`
     )).trim();
+
+    core.info(`Current Tag: ${currentTag}`);
 
     let tag = '';
     try {
@@ -1287,6 +1292,8 @@ async function run() {
     catch (err) {
       tag = '';
     }
+
+    core.info(`Tag: ${tag}`);
 
     let root;
     if (tag === '') {
